@@ -1,0 +1,25 @@
+{
+  "name": "secure-rest-api-ts",
+  "version": "1.0.0",
+  "description": "NodeJS/TypeScript Rest API with Auth",
+  "main": "app.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChrishanJay/NodeJS-TS-Secure-Rest-API.git"
+  },
+  "keywords": [
+    "node",
+    "typescript",
+    "secure",
+    "api"
+  ],
+  "author": "Chrishan Jayakody",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ChrishanJay/NodeJS-TS-Secure-Rest-API/issues"
+  },
+  "homepage": "https://github.com/ChrishanJay/NodeJS-TS-Secure-Rest-API#readme"
+}
