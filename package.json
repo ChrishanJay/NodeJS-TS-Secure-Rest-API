@@ -4,6 +4,8 @@
   "description": "NodeJS/TypeScript Rest API with Auth",
   "main": "app.ts",
   "scripts": {
+    "start": "tsc && node --unhandled-rejections=strict ./dist/app.js",
+    "debug": "export DEBUG=* && npm run start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
