@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/ChrishanJay/NodeJS-TS-Secure-Rest-API#readme",
   "dependencies": {
+    "argon2": "^0.30.3",
     "cors": "^2.8.5",
     "debug": "^4.3.4",
     "express": "^4.18.2",

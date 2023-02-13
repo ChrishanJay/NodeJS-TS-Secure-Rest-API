@@ -56,7 +56,7 @@ class UsersDAO {
         return `${user.id} patched`;
     }
 
-    async deleteUserById(userId: string) {
+    async removeUserById(userId: string) {
         const userIndex = this.users.findIndex((user: { id: string }) => user.id === userId);
         this.users.splice(userIndex, 1);
         return `${userId} removed`;
