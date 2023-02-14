@@ -68,6 +68,12 @@ class UsersDAO {
     async getUserByEmail(email: string) {
         return this.User.findOne({ email: email }).exec();
     }
+
+    async getUserByEmailWithPassword(email: string) {
+        return this.User.findOne({ email: email })
+            .select('_id email permissionFlags +password')
+            .exec();
+    }
 }
 
 export default new UsersDAO();
