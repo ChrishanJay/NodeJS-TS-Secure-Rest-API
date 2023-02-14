@@ -1,6 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/macos,node,visualstudiocode,dotenv
 # Edit at https://www.toptal.com/developers/gitignore?templates=macos,node,visualstudiocode,dotenv
 
+### docker data file ###
+/data
+
 ### dotenv ###
 .env
 
@@ -11,7 +14,8 @@
 .LSOverride
 
 # Icon must end with two \r
-Icon
+Icon
+
 
 # Thumbnails
 ._*
