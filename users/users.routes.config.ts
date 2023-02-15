@@ -21,7 +21,7 @@ export class UserRoutes extends CommonRoutesConfig {
             .route('/users')
             .get(JWTMiddleware.validJWTNeeded,
                 PermissionMiddleware.permissionFlagRequired(
-                    PermissionFlag.SUPER_ADMIN
+                    PermissionFlag.MODERATOR
                 ),
                 UsersController.listUsers)
             .post(

@@ -13,7 +13,6 @@ class CommonPermissionMiddleware {
             next: express.NextFunction
         ) => {
             try {
-                log('Response Locals %0', res.locals)
                 const userPermissionFlags = parseInt(
                     res.locals.jwt.permissionFlags
                 );
@@ -23,7 +22,7 @@ class CommonPermissionMiddleware {
                     res.status(403).send();
                 }
             } catch (error) {
-                log(error);
+                log("common-permission-middleware", error);
             }
         }
     }

@@ -45,7 +45,6 @@ class UsersMiddleware {
     ) => {
         if (req.body.email) {
             log('Validating email', req.body.email)
-
             this.validateSameEmailBelongsToSameUser(req, res, next);
         } else {
             next();
