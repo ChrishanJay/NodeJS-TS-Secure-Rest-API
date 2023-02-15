@@ -1,5 +1,5 @@
 import express from 'express';
-import userService from '../services/users.services';
+import userService from '../services/users.service';
 import argon2 from 'argon2';
 import debug from 'debug';
 

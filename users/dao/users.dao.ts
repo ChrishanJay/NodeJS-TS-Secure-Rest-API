@@ -1,6 +1,7 @@
 import { CreateUserDTO } from '../dto/create.user.dto';
 import { PatchUserDTO } from '../dto/patch.user.dto';
 import { PutUserDTO } from '../dto/put.user.dto';
+import { PermissionFlag } from '../../common/middleware/common.permissionflag.enum';
 
 import mongooseService from '../../common/services/mongoose.service';
 import shortid from 'shortid';
@@ -31,7 +32,7 @@ class UsersDAO {
         const user = new this.User({
             _id: userId,
             ...userFields,
-            permissionFlags: 1,
+            permissionFlags: PermissionFlag.PUBLIC,
         });
         await user.save();
         return userId;

@@ -1,7 +1,12 @@
 import { CommonRoutesConfig } from '../common/common.routes.config';
+import { PermissionFlag } from '../common/middleware/common.permissionflag.enum';
+
 import UsersController from './controllers/users.controllers';
 import UsersMiddleware from './middleware/users.middleware';
 import BodyValidationMiddleware from '../common/middleware/body.validation.middleware';
+import JWTMiddleware from '../auth/middleware/jwt.middleware';
+import PermissionMiddleware from '../common/middleware/common.permission.middleware';
+
 import express from 'express';
 import { body } from 'express-validator';
 
@@ -13,8 +18,12 @@ export class UserRoutes extends CommonRoutesConfig {
     configureRoutes() {
 
         this.app
-            .route('/user')
-            .get(UsersController.listUsers)
+            .route('/users')
+            .get(JWTMiddleware.validJWTNeeded,
+                PermissionMiddleware.permissionFlagRequired(
+                    PermissionFlag.SUPER_ADMIN
+                ),
+                UsersController.listUsers)
             .post(
                 body('email').isEmail(),
                 body('password')
@@ -30,7 +39,11 @@ export class UserRoutes extends CommonRoutesConfig {
 
         this.app
             .route('/users/:userId')
-            .all(UsersMiddleware.validateUserExist)
+            .all(
+                UsersMiddleware.validateUserExist,
+                JWTMiddleware.validJWTNeeded,
+                PermissionMiddleware.onlySameUserOrAdminCanDoThisAction
+            )
             .get(UsersController.getUserById)
             .delete(UsersController.removeUser);
 
@@ -45,6 +58,10 @@ export class UserRoutes extends CommonRoutesConfig {
                 body('permissionFlags').isInt(),
                 BodyValidationMiddleware.verifyBodyFieldsErrors,
                 UsersMiddleware.validateSameEmailBelongsToSameUser,
+                UsersMiddleware.userCantChangePermission,
+                PermissionMiddleware.permissionFlagRequired(
+                    PermissionFlag.APPROVED_MEMBER
+                ),
                 UsersController.put
             ]);
 
@@ -60,6 +77,10 @@ export class UserRoutes extends CommonRoutesConfig {
                 body('permissionFlags').isInt().optional(),
                 BodyValidationMiddleware.verifyBodyFieldsErrors,
                 UsersMiddleware.validatePatchEmail,
+                UsersMiddleware.userCantChangePermission,
+                PermissionMiddleware.permissionFlagRequired(
+                    PermissionFlag.APPROVED_MEMBER
+                ),
                 UsersController.patch
             ]);
 

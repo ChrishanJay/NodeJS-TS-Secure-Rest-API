@@ -1,5 +1,5 @@
 import express from 'express';
-import usersService from '../../users/services/users.services';
+import usersService from '../../users/services/users.service';
 import * as argon2 from 'argon2';
 
 class AuthMiddleware {
