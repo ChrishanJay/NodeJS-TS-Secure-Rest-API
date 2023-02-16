@@ -19,7 +19,9 @@ class CommonPermissionMiddleware {
                 if (userPermissionFlags & requiredPermissionFlag) {
                     next();
                 } else {
-                    res.status(403).send();
+                    res.status(403).send({
+                        error: 'permissionFlagRequired'
+                    });
                 }
             } catch (error) {
                 log("common-permission-middleware", error);

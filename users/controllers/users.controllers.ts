@@ -2,6 +2,7 @@ import express from 'express';
 import userService from '../services/users.service';
 import argon2 from 'argon2';
 import debug from 'debug';
+import { PatchUserDTO } from '../dto/patch.user.dto';
 
 const log: debug.IDebugger = debug('app:users-controller');
 
@@ -21,6 +22,14 @@ class UsersController {
         req.body.password = await argon2.hash(req.body.password);
         const userId = await userService.create(req.body);
         res.status(201).send({ id: userId });
+    }
+
+    async updatePermissionFlags(req: express.Request, res: express.Response) {
+        const patchUserDTO: PatchUserDTO = {
+            permissionFlags: parseInt(req.params.permissionFlags),
+        };
+        log(await userService.patchById(req.body.id, patchUserDTO));
+        res.status(204).send();
     }
 
     async patch(req: express.Request, res: express.Response) {

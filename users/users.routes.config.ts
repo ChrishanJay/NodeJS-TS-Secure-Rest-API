@@ -49,6 +49,7 @@ export class UserRoutes extends CommonRoutesConfig {
 
         this.app
             .put('/users/:userId', [
+                JWTMiddleware.validJWTNeeded,
                 body('email').isEmail(),
                 body('password')
                     .isLength({ min: 6 })
@@ -59,6 +60,7 @@ export class UserRoutes extends CommonRoutesConfig {
                 BodyValidationMiddleware.verifyBodyFieldsErrors,
                 UsersMiddleware.validateSameEmailBelongsToSameUser,
                 UsersMiddleware.userCantChangePermission,
+                PermissionMiddleware.onlySameUserOrAdminCanDoThisAction,
                 PermissionMiddleware.permissionFlagRequired(
                     PermissionFlag.APPROVED_MEMBER
                 ),
@@ -83,6 +85,16 @@ export class UserRoutes extends CommonRoutesConfig {
                 ),
                 UsersController.patch
             ]);
+
+        this.app.put('/users/:userId/permissionFlags/:permissionFlags', [
+            JWTMiddleware.validJWTNeeded,
+
+            // this should be admin only
+            PermissionMiddleware.permissionFlagRequired(
+                PermissionFlag.PUBLIC
+            ),
+            UsersController.updatePermissionFlags
+        ]);
 
         return this.app
     }

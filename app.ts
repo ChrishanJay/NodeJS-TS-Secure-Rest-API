@@ -36,7 +36,10 @@ const loggerOptions: expressWinston.LoggerOptions = {
     ),
 };
 if (!process.env.DEBUG) {
-    loggerOptions.meta = false;
+    loggerOptions.meta = false; // when not debugging, make terse
+    if (typeof global.it === 'function') {
+        loggerOptions.level = 'http'; // for non-debug test runs, squelch entirely
+    }
 }
 
 app.use(expressWinston.logger(loggerOptions));
@@ -49,9 +52,12 @@ app.get('/', (req: express.Request, res: express.Response) => {
     res.status(200).send(runningMessage);
 });
 
-server.listen(port, () => {
-    routes.forEach((route: CommonRoutesConfig) => {
-        debugLog(`Routes configured for ${route.getName()}`);
+export default
+
+    server.listen(port, () => {
+        routes.forEach((route: CommonRoutesConfig) => {
+            debugLog(`Routes configured for ${route.getName()}`);
+        });
+        console.log(runningMessage);
     });
-    console.log(runningMessage);
-});
+
