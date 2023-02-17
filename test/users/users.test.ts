@@ -121,9 +121,9 @@ describe('users and auth endpoints', function () {
             );
         });
 
-        it('should allow a PUT to /users/:userId/permissionFlags/128 (IT_ADMIN) for testing', async function () {
+        it('should allow a PUT to /users/:userId/permissionFlags/1024 (IT_ADMIN) for testing', async function () {
             const response = await request
-                .put(`/users/${firstUserIdTest}/permissionFlags/128`)
+                .put(`/users/${firstUserIdTest}/permissionFlags/1024`)
                 .set({ Authorization: `Bearer ${accessToken}` })
                 .send({});
 
@@ -145,7 +145,7 @@ describe('users and auth endpoints', function () {
                 refreshToken = response.body.refreshToken;
             });
 
-            it('should allow a PUT to /user/:userId to change the first and last names', async function () {
+            it('should allow a PUT to /users/:userId to change the first and last names', async function () {
                 const response = await request
                     .put(`/users/${firstUserIdTest}/`)
                     .set({ Authorization: `Bearer ${accessToken}` })
@@ -154,7 +154,7 @@ describe('users and auth endpoints', function () {
                         password: firstUserBody.password,
                         firstName: newFirstName2,
                         lastName: newLastName2,
-                        permissionFlags: 128
+                        permissionFlags: 1024
                     });
 
                 expect(response.status).to.equal(204);
@@ -178,7 +178,7 @@ describe('users and auth endpoints', function () {
 
             it('should allow a DELETE from /users/:userId', async function () {
                 const response = await request
-                    .delete('/users/${firstUserIdTest}')
+                    .delete(`/users/${firstUserIdTest}`)
                     .set({ Authorization: `Bearer ${accessToken}` })
                     .send();
 

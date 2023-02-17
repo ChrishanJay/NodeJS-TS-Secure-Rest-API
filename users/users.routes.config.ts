@@ -62,7 +62,7 @@ export class UserRoutes extends CommonRoutesConfig {
                 UsersMiddleware.userCantChangePermission,
                 PermissionMiddleware.onlySameUserOrAdminCanDoThisAction,
                 PermissionMiddleware.permissionFlagRequired(
-                    PermissionFlag.APPROVED_MEMBER
+                    PermissionFlag.IT_ADMIN
                 ),
                 UsersController.put
             ]);
@@ -81,7 +81,7 @@ export class UserRoutes extends CommonRoutesConfig {
                 UsersMiddleware.validatePatchEmail,
                 UsersMiddleware.userCantChangePermission,
                 PermissionMiddleware.permissionFlagRequired(
-                    PermissionFlag.APPROVED_MEMBER
+                    PermissionFlag.IT_ADMIN
                 ),
                 UsersController.patch
             ]);

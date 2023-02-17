@@ -42,7 +42,7 @@ class CommonPermissionMiddleware {
         ) {
             return next();
         } else {
-            if (userPermissionFlags & PermissionFlag.SUPER_ADMIN) {
+            if (userPermissionFlags & PermissionFlag.IT_ADMIN) {
                 return next();
             } else {
                 return res.status(403).send();
