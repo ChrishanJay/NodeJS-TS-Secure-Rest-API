@@ -5,6 +5,7 @@ if (dotenvResult.error) {
 }
 import express from 'express';
 import * as http from 'http';
+import helmet from 'helmet';
 
 import * as winston from 'winston';
 import * as expressWinston from 'express-winston';
@@ -25,6 +26,7 @@ const debugLog: debug.IDebugger = debug('app');
 
 app.use(express.json());
 app.use(cors());
+app.use(helmet());
 
 const loggerOptions: expressWinston.LoggerOptions = {
     transports: [new winston.transports.Console()],
